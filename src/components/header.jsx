@@ -1,16 +1,5 @@
-"use client";
-
+"use client"
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import {
-  Menu,
-  X,
-  TrendingUp,
-  Bell,
-  User,
-  Search,
-  ChevronDown,
-} from "lucide-react";
 
 export default function TradingAppHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,7 +24,6 @@ export default function TradingAppHeader() {
   const navLinks = [
     { name: "Markets", href: "/market" },
     { name: "Trade", href: "/trade" },
-    // { name: "Portfolio", href: "/portfolio" },
     { name: "Learn", href: "/learn" },
     { name: "Earn", href: "/earn" },
   ];
@@ -78,35 +66,39 @@ export default function TradingAppHeader() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg blur-sm opacity-75"></div>
               <div className="relative bg-gradient-to-br from-emerald-500 to-cyan-500 p-2 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-white" />
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
               </div>
             </div>
             <span className="text-xl font-bold text-white hidden sm:block">
               TradePro
             </span>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
             {navLinks.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
 
           {/* Search */}
           <div className="hidden lg:flex">
             <div className="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 w-64">
-              <Search className="w-4 h-4 text-slate-400 mr-2" />
+              <svg className="w-4 h-4 text-slate-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
               <input
                 type="text"
                 placeholder="Search assets..."
@@ -117,52 +109,78 @@ export default function TradingAppHeader() {
 
           {/* Right Actions */}
           <div className="flex items-center space-x-2">
-            <button className="relative p-2 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg">
-              <Bell className="w-5 h-5" />
+            <a href="/notifications" className="relative p-2 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
               <span className="absolute top-1 right-1 w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-            </button>
+            </a>
 
-            <div className="relative hidden sm:block">
+            {/* Profile Dropdown - Now visible on all screen sizes */}
+            <div className="relative">
               <button
                 onClick={() => setIsUserOpen(!isUserOpen)}
                 className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800/50 rounded-lg"
               >
                 <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-white" />
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
                 </div>
-                <ChevronDown className="w-4 h-4" />
+                <svg className="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
 
               {isUserOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-lg shadow-lg overflow-hidden z-50">
-                  <Link
+                  <a
                     href="/profile"
                     className="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 transition-colors"
+                    onClick={() => setIsUserOpen(false)}
                   >
                     Profile
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     href="/withdrawal"
                     className="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 transition-colors"
+                    onClick={() => setIsUserOpen(false)}
                   >
                     Withdrawal
-                  </Link>
+                  </a>
+                  <a
+                    href="/deposit"
+                    className="block px-4 py-3 text-sm text-emerald-400 hover:bg-slate-800 transition-colors sm:hidden"
+                    onClick={() => setIsUserOpen(false)}
+                  >
+                    Deposit
+                  </a>
                 </div>
               )}
             </div>
 
-            <Link
+            {/* Desktop Deposit Button */}
+            <a
               href="/deposit"
               className="hidden sm:block px-6 py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-200"
             >
               Deposit
-            </Link>
+            </a>
 
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg"
             >
-              {isMenuOpen ? <X /> : <Menu />}
+              {isMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
@@ -176,20 +194,15 @@ export default function TradingAppHeader() {
       >
         <div className="px-4 py-4 space-y-2 bg-slate-900 border-t border-slate-800/50">
           {navLinks.map((item) => (
-            <Link
+            <a
               key={item.name}
               href={item.href}
               className="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-800/50 rounded-lg"
+              onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
-            </Link>
+            </a>
           ))}
-          <Link
-            href="/deposit"
-            className="block mt-4 px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-lg text-center"
-          >
-            Deposit
-          </Link>
         </div>
       </div>
     </header>
